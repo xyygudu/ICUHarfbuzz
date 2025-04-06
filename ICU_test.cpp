@@ -157,6 +157,7 @@ void get_glyphs(const UChar* text, int32_t length, std::vector<hb_glyph_info_t>&
             
             std::cout << "codepoint" << "\t" << "cluster" << "\t\t" << "x_advance" << std::endl;
             for (unsigned int i = 0; i < glyph_count; i++) {
+                glyph_info[i].cluster += start;
                 all_glyphs.push_back(glyph_info[i]);
                 all_positions.push_back(glyph_pos[i]);
                 hb_codepoint_t glyphid = glyph_info[i].codepoint;  // 这里的codepoint表示glyphid，并不是字符的unicode码点
@@ -216,8 +217,8 @@ void draw_bitmap(FT_Bitmap* bitmap, FT_Int x, FT_Int y)
 
 int main()
 {
-    std::string utf8_text = u8"Helloالعالم🥳你好";
-
+    // std::string utf8_text = u8"Helloالعالم🥳你好";
+    std::string utf8_text = u8"الْعَرَبِيَّةُ";
 
     hb_buffer_t* buf;
     buf = hb_buffer_create();
